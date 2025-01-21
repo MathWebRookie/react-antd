@@ -1,10 +1,61 @@
-import React from 'react';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Button } from 'antd';
+const songs: Song[] = [
+  { id: 1, name: "爷爷泡的茶" },
+  { id: 2 },
+  { id: 3, name: "Things you said" },
+];
 
-const App: React.FC = () => (
-  <div className="App">
+// 函数组件
+interface LiconProps {
+  name?: string;
+  value: string | null;
+  handleClick: () => void;
+  key?: string | number;
+}
+
+function Licon({ name = "Default Name", value, handleClick }: LiconProps) {
+  return (
+    <>
+    <li onClick={handleClick}>
+      {name}
+      {value}
+    </li>
     <Button type="primary">Button</Button>
-  </div>
-);
+    </>
+  );
+}
+
+Licon.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  handleClick: PropTypes.func.isRequired,
+};
+
+// App 组件
+function App() {
+  const [value, setValue] = useState<string | null>(null);
+
+  function handleClick() {
+    setValue("X");
+  }
+
+  return (
+    <div className="app">
+      <h2>hello React</h2>
+      <ul>
+        {songs.map((item) => (
+          <Licon
+            key={item.id}
+            name={item.name}
+            value={value}
+            handleClick={handleClick}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default App;
