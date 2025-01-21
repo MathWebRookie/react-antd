@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button } from 'antd';
+interface Song {
+  id: number;
+  name?: string;
+}
 const songs: Song[] = [
   { id: 1, name: "爷爷泡的茶" },
   { id: 2 },
@@ -15,7 +19,7 @@ interface LiconProps {
   key?: string | number;
 }
 
-function Licon({ name = "Default Name", value, handleClick }: LiconProps) {
+function Licon({ name, value, handleClick }: LiconProps) {
   return (
     <>
     <li onClick={handleClick}>
@@ -26,12 +30,6 @@ function Licon({ name = "Default Name", value, handleClick }: LiconProps) {
     </>
   );
 }
-
-Licon.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  handleClick: PropTypes.func.isRequired,
-};
 
 // App 组件
 function App() {
